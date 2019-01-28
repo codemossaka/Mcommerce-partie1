@@ -69,6 +69,9 @@ public class Product {
         this.prixAchat = prixAchat;
     }
 
+    public Integer subsPrice (){
+        return prix-prixAchat;
+    }
     @Override
     public String toString() {
         return "Product{" +
