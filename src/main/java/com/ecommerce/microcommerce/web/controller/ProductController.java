@@ -73,10 +73,12 @@ public class ProductController {
         return list;
     }
 
-
+    @GetMapping(value = "/Produits/trier")
     public List<Product> trierProduitsParOrdreAlphabetique(){
 
-        List<Product> product = new Product();
+        List<Product> product = productDao.findAllByOrderByNom();
+
+        if (product.size()==0) throw new ProduitIntrouvableException("Le produit  est INTROUVABLE. Écran Bleu si je pouvais.");
 
         return product;
     }
