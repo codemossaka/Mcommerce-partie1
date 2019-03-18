@@ -78,11 +78,10 @@ public class ProductController {
 
         List<Product> product = productDao.findAllByOrderByNom();
 
-        if (product.size()==0) throw new ProduitIntrouvableException("Aucun produit n'a ete trouve.");
+        if (product.size()==0) throw new ProduitIntrouvableException("Le produit  est INTROUVABLE. Écran Bleu si je pouvais.");
 
         return product;
     }
-
 
     //ajouter un produit
     @PostMapping(value = "/Produits")
