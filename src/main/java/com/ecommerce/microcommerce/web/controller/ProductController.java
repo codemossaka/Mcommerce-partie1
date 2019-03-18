@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 
-@Api( description="API pour es opérations CRUD sur les produits.")
+@Api(description = "API pour es opérations CRUD sur les produits.")
 
 @RestController
 public class ProductController {
@@ -59,13 +59,14 @@ public class ProductController {
 
         Product produit = productDao.findById(id);
 
-        if(produit==null) throw new ProduitIntrouvableException("Le produit avec l'id " + id + " est INTROUVABLE. Écran Bleu si je pouvais.");
+        if (produit == null)
+            throw new ProduitIntrouvableException("Le produit avec l'id " + id + " est INTROUVABLE. Écran Bleu si je pouvais.");
 
         return produit;
     }
 
     @GetMapping(value = "/AdminProduits")
-    public Map<String, Integer> calculerMargeProduit(){
+    public Map<String, Integer> calculerMargeProduit() {
 
         Map<String, Integer> list = productDao.findAll().stream().collect(Collectors.toMap(Product::toString, Product::subsPrice));
 
@@ -73,23 +74,12 @@ public class ProductController {
         return list;
     }
 
-    @GetMapping(value = "/Produits/trier")
-    public List<Product> trierProduitsParOrdreAlphabetique(){
-
-        List<Product> product = productDao.findAllByOrderByNom();
-
-        if (product.size()==0) throw new ProduitIntrouvableException("Le produit  est INTROUVABLE. Écran Bleu si je pouvais.");
-
-        return product;
-    }
-
-
     //ajouter un produit
     @PostMapping(value = "/Produits")
 
     public ResponseEntity<Void> ajouterProduit(@Valid @RequestBody Product product) {
 
-        Product productAdded =  productDao.save(product);
+        Product productAdded = productDao.save(product);
 
         if (productAdded == null)
             return ResponseEntity.noContent().build();
@@ -103,13 +93,13 @@ public class ProductController {
         return ResponseEntity.created(location).build();
     }
 
-    @DeleteMapping (value = "/Produits/{id}")
+    @DeleteMapping(value = "/Produits/{id}")
     public void supprimerProduit(@PathVariable int id) {
 
         productDao.delete(id);
     }
 
-    @PutMapping (value = "/Produits")
+    @PutMapping(value = "/Produits")
     public void updateProduit(@RequestBody Product product) {
 
         productDao.save(product);
@@ -118,11 +108,10 @@ public class ProductController {
 
     //Pour les tests
     @GetMapping(value = "test/produits/{prix}")
-    public List<Product>  testeDeRequetes(@PathVariable int prix) {
+    public List<Product> testeDeRequetes(@PathVariable int prix) {
 
-        return productDao.chercherUnProduitCher(400);
+        return productDao.chercherUnProduitCher(prix);
     }
-
 
 
 }
