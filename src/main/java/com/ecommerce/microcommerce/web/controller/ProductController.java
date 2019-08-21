@@ -2,6 +2,7 @@ package com.ecommerce.microcommerce.web.controller;
 
 import com.ecommerce.microcommerce.dao.ProductDao;
 import com.ecommerce.microcommerce.model.Product;
+import com.ecommerce.microcommerce.web.exceptions.ProduitGratuitException;
 import com.ecommerce.microcommerce.web.exceptions.ProduitIntrouvableException;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
@@ -19,7 +20,6 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 
 @Api( description="API pour es opérations CRUD sur les produits.")
@@ -64,24 +64,8 @@ public class ProductController {
         return produit;
     }
 
-    @GetMapping(value = "/AdminProduits")
-    public Map<String, Integer> calculerMargeProduit(){
-
-        Map<String, Integer> list = productDao.findAll().stream().collect(Collectors.toMap(Product::toString, Product::subsPrice));
 
 
-        return list;
-    }
-
-    @GetMapping(value = "/Produits/trier")
-    public List<Product> trierProduitsParOrdreAlphabetique(){
-
-        List<Product> product = productDao.findAllByOrderByNom();
-
-        if (product.size()==0) throw new ProduitIntrouvableException("Le produit  est INTROUVABLE. Écran Bleu si je pouvais.");
-
-        return product;
-    }
 
     //ajouter un produit
     @PostMapping(value = "/Produits")
@@ -92,6 +76,8 @@ public class ProductController {
 
         if (productAdded == null)
             return ResponseEntity.noContent().build();
+
+        if (productAdded.getPrix() <= 0) throw new ProduitGratuitException("Le produit ne peut être gratuit !");
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -119,9 +105,27 @@ public class ProductController {
     @GetMapping(value = "test/produits/{prix}")
     public List<Product>  testeDeRequetes(@PathVariable int prix) {
 
-        return productDao.chercherUnProduitCher(prix);
+        return productDao.chercherUnProduitCher(400);
     }
 
 
+    @GetMapping(value = "/AdminProduits")
+    public Map<Product, Integer> calculerMargeProduit() {
+        Iterable<Product> produits = productDao.findAll();
+
+        Map<Product, Integer> margeProduit = new HashMap<>();
+
+        for(Product produit: produits)
+            margeProduit.put(produit, produit.getPrix() - produit.getPrixAchat());
+
+        return margeProduit;
+    }
+
+
+    @GetMapping(value = "/AdminProduits/trier")
+    public List<Product> trierProduitsParOrdreAlphabetique() {
+
+        return productDao.ordonnerParNom();
+    }
 
 }

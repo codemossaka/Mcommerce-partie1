@@ -1,0 +1,115 @@
+{
+	"id": "7513addc-3f72-c798-14b4-6fee45777c77",
+	"name": "TestsPostman",
+	"description": "",
+	"order": [
+		"6bee7b3c-17d1-eb11-b026-857b0ddce418",
+		"cf52f6c1-7c9c-8065-eef9-30532efb9ec4"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1552927766255,
+	"owner": "1007656",
+	"public": false,
+	"requests": [
+		{
+			"id": "6bee7b3c-17d1-eb11-b026-857b0ddce418",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:9993/AdminProduits",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1552927900525,
+			"name": "AdminProduits",
+			"description": "",
+			"collectionId": "7513addc-3f72-c798-14b4-6fee45777c77",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 19,
+					"headers": [
+						{
+							"name": "content-type",
+							"key": "content-type",
+							"value": "application/json;charset=UTF-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "date",
+							"key": "date",
+							"value": "Mon, 18 Mar 2019 16:51:45 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "transfer-encoding",
+							"key": "transfer-encoding",
+							"value": "chunked",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"Product{id=1, nom='Ordinateur portable', prix=350}\":230,\"Product{id=3, nom='Table de Ping Pong', prix=750}\":350,\"Product{id=2, nom='Aspirateur Robot', prix=500}\":300}",
+					"language": "json",
+					"rawDataType": "text",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"name": "AdminProduits",
+					"id": "d61f5a72-0460-e356-c82a-ee36b3f10ce8",
+					"request": {
+						"url": "http://localhost:9993/AdminProduits",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [],
+						"headerData": [],
+						"headers": "",
+						"data": null,
+						"method": "GET",
+						"dataMode": "params"
+					}
+				}
+			]
+		},
+		{
+			"id": "cf52f6c1-7c9c-8065-eef9-30532efb9ec4",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:9993/Produits/trier",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "7513addc-3f72-c798-14b4-6fee45777c77",
+			"data": null,
+			"dataMode": "params",
+			"name": "Produits/trier",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1552928173336,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	]
+}
